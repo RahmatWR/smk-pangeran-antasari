@@ -1,0 +1,8 @@
+.card {
+	flex-shrink: 0;
+}
+
+/* .teacher-cards-track {
+	transform: translateX(-100px);
+	transition: transform 1s;
+} */

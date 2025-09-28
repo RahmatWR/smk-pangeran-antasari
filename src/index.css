@@ -1,0 +1,13 @@
+:root {
+	--bs-body-font-family: "roboto", serif;
+	--basic-light-shadow: 2px 2px 2px white;
+	--basic-dark-shadow: 2px 2px 2px black;
+}
+[data-bs-theme="dark"] {
+	--green: #4caf50;
+	--basic-shadow: var(--basic-light-shadow);
+}
+[data-bs-theme="light"] {
+	--green: #064d04;
+	--basic-shadow: var(--basic-dark-shadow);
+}
