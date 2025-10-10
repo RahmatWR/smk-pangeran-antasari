@@ -1,36 +1,54 @@
+import { useLayoutEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { AiOutlineRight } from "react-icons/ai";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+// import { useGSAP } from "@gsap/react";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
+import Carousel from "../components/Carousel";
+import { tagline, headmastersForeword } from "../utils/homepage";
+
 import "../styles/homepage.css";
+import LocaleContext from "../contexts/LocaleContext";
 
 export default function HomePage() {
+	const { locale } = useContext(LocaleContext);
 	gsap.registerPlugin(MotionPathPlugin);
-	useGSAP(() => {
-		const orbittingItems =
-			gsap.utils.toArray<HTMLAnchorElement>(".orbitting-item");
-		const total = orbittingItems.length;
-		// console.log(orbittingItems);
-		orbittingItems.forEach((item, index) => {
-			const start = index / total;
-			const end = start + 1;
 
-			gsap.to(item, {
-				duration: 7,
-				repeat: -1,
-				ease: "out",
-				motionPath: {
-					path: "#orbit",
-					align: "#orbit",
-					alignOrigin: [0.5, 0.5],
-					start: start,
-					end: end,
-				},
+	function language(ind: string, en: string) {
+		return locale === "id" ? ind : en;
+	}
+
+	useLayoutEffect(() => {
+		function startAnimation() {
+			const orbittingItems =
+				gsap.utils.toArray<HTMLAnchorElement>(".orbitting-item");
+			const total = orbittingItems.length;
+			orbittingItems.forEach((item, index) => {
+				const start = index / total;
+				const end = start + 1;
+
+				gsap.to(item, {
+					duration: 7,
+					repeat: -1,
+					ease: "out",
+					motionPath: {
+						path: "#orbit",
+						align: "#orbit",
+						alignOrigin: [0.5, 0.5],
+						start: start,
+						end: end,
+					},
+				});
 			});
-		});
-	}, []);
+		}
 
-	window.addEventListener("resize", () => console.log(window.innerWidth));
+		if (document.readyState === "complete") startAnimation();
+		else {
+			window.addEventListener("load", startAnimation);
+			return () => window.removeEventListener("load", startAnimation);
+		}
+	}, []);
 	return (
 		<main>
 			<section>
@@ -49,15 +67,10 @@ export default function HomePage() {
 								</span>{" "}
 								BALIKPAPAN
 							</h1>
-							<p>
-								SMK Pangeran Antasari Balikpapan berkomitmen membentuk generasi
-								berakhlak mulia, berlandaskan nilai agama dan ilmu pengetahuan,
-								serta siap menghadapi dunia kerja, melanjutkan pendidikan
-								tinggi, maupun berwirausaha.
-							</p>
+							<p>{locale === "id" ? tagline.id : tagline.en}</p>
 							<div className="action">
-								<button className="btn position-relative z-3">
-									Lihat Jurusan
+								<button className="btn btn-success position-relative z-3">
+									{language("Lihat Jurusan", "See Majors")}
 								</button>
 							</div>
 						</article>
@@ -97,14 +110,17 @@ export default function HomePage() {
 								className="position-absolute bottom-0 d-block mx-auto"
 								src="./—Pngtree—smiling school boy with glasses_21236652.png"
 								alt="student"
+								loading="lazy"
 							/>
 						</article>
 					</div>
 				</div>
 			</section>
-			<section className="section-2">
-				<div className="container py-3">
-					<h2 className="text-center">Prakata Kepala Sekolah</h2>
+			<section className="section-2 pb-3">
+				<div className="py-3">
+					<h2 className="text-center">
+						{language("Prakata Kepala Sekolah", "principal's Foreword")}
+					</h2>
 					<article className="principals-foreward p-2 position-relative">
 						<div className="principals-foreword__picture position-absolute top-0 start-50">
 							<div className="principals-foreword__picture__wrapper"></div>
@@ -121,50 +137,130 @@ export default function HomePage() {
 								width="150px"
 								height="150px"
 								style={{ borderRadius: "50%" }}
+								loading="lazy"
 							/>
 						</div>
 						<div className="principals-foreword__paragraf text-justify container">
 							<div className="row row-cols-1 row-cols-lg-2">
+								<svg
+									className="position-absolute z-2 text-svg"
+									width={280}
+									height={280}
+									viewBox="0 0 100 100"
+									fill="blue">
+									<path
+										id="text-path"
+										d="	M 50 0
+     									A 50 50 0 1 0 50 100
+     									A 50 50 0 1 0 50 0"
+										fill="transparent"
+									/>
+									<text fontSize={5}>
+										<textPath href="#text-path" startOffset={125}>
+											Imam Rakhmat, S.Sos., M.Si
+										</textPath>
+									</text>
+								</svg>
 								<div className="principals-foreword__paragraf__half first">
 									<div className="left-half-circle ms-5"></div>
 									<p className="principals-foreword__paragraf__body">
-										Puji syukur kita panjatkan kepada Allah سُبۡحَٰنَهُۥ
-										وَتَعَٰلَىٰ atas berkah limpahan rahmat dan karunianya kita
-										semua masih dalam keadaan sehat dan masih bisa menikmati
-										berbagai nikmat hidup yang begitu banyak. Shalawat serta
-										salam tercurah ke Junjungan Nabi Muhammad صَلَّى اللهُ
-										عَلَيْهِ وَسَلَّمَ , suri tauladan terbaik, semoga kita
-										termasuk umatnya hingga akhir zaman. Perubahan adalah sebuah
-										keniscayaan dalam setiap aspek kehidupan. demikian halnya
-										dalam Dunia Pendidikan. Maka sekolah tentu terus mengikuti
-										perkembangan tersebut. Sebagai sarana informasi dan
-										komunikasi sekolah, maka kami meluncurkan situs resmi
-										sekolah dengan nama: smkpangeranantasari.sch.id.
+										{language(
+											headmastersForeword.firstHalf.id,
+											headmastersForeword.firstHalf.en
+										)}
 									</p>
 								</div>
 								<div className="principals-foreword__paragraf__half second">
 									<div className="right-half-circle me-5"></div>
 									<p className="principals-foreword__paragraf__body">
-										Kami terus melakukan pembenahan dan perbaikan guna
-										meningkatkan mutu dan kualitas SMK Pangeran Antasari
-										Balikpapan menuju Pangeran siap Berja, siap berwirausaha.
-										media sosial kami juga bisa diakses melalui instagram
-										STM/SMK Pangeran Antasari. Semoga kedepannya bisa menjadi
-										sarana Komunikasi dan informasi yang bisa kami sinergikan
-										dengan media media sosial sekolah kedepannya, sehingga SMK
-										Pangeran Antasari Balikpapan bisa lebih dikenal Masyarakat
-										dan dapat menjadi salah satu institusi pendidikan yang
-										berkelas dan turut serta dalam proses mencerdaskan anak
-										bangsa. Kami sampaikan terima kasih kepada tim dari
-										sinarweb.com sebagai penyedia domain hosting murah serta
-										membuat website ini dengan baik. Harapan kami, website ini
-										akan terus berkembang penggunaannya sebagai sarana informasi
-										yang menunjang dunia pendidikan.
+										{language(
+											headmastersForeword.secondHalf.id,
+											headmastersForeword.secondHalf.en
+										)}
 									</p>
 								</div>
 							</div>
 						</div>
 					</article>
+				</div>
+
+				<h2 className="text-center mb-3">
+					{language("Berita Terkini", "Updated News")}
+				</h2>
+				<div className="container most-updated-news text-center">
+					<div className="row row-cols-md-3 row-cols-lg-4 justify-content-md-center gap-4 justify-content-center gap-lg-2 mb-4">
+						<Link to="/" className="text-decoration-none d-block news-link">
+							<div className="card news p-0 h-100">
+								<img
+									src="./perayaan-kemerdekaan/penyerahan-hadiah.jpg"
+									className="card-img-top"
+									alt="Perayaan Kemerdekaan Indonesia"
+									loading="lazy"
+								/>
+								<div className="card-body">
+									<h5 className="card-title">
+										Perayaan Hari Kemerdekaan Indonesia
+									</h5>
+									<p className="card-text">
+										Perayaan 17 Agustus dengan Semangat Intelektual
+									</p>
+								</div>
+							</div>
+						</Link>
+
+						<Link to={"/"} className="text-decoration-none d-block">
+							<div className="card news p-0 h-100">
+								<img
+									src="./penghargaan-bela-negara\bela-negara.jpg"
+									className="card-img-top"
+									alt="Perayaan Kemerdekaan Indonesia"
+									loading="lazy"
+								/>
+								<div className="card-body">
+									<h5 className="card-title">Penghargaan Bela Negara</h5>
+									<p className="card-text">
+										SMK Pangeran Antasari Balikpapan raih penghargaan bela
+										Negara
+									</p>
+								</div>
+							</div>
+						</Link>
+
+						<Link to={"/"} className="text-decoration-none d-block">
+							<div className="card news p-0 h-100">
+								<img
+									src="./astra-safety-riding\safety-riding.jpg"
+									className="card-img-top"
+									alt="Perayaan Kemerdekaan Indonesia"
+									loading="lazy"
+								/>
+								<div className="card-body">
+									<h5 className="card-title">Edukasi Safety Riding</h5>
+									<p className="card-text">
+										Astra Motor Balikpapan Gelar Edukasi Safety Riding di SMK
+										Pangeran Antasari, Begini Keseruannya
+									</p>
+								</div>
+							</div>
+						</Link>
+					</div>
+					<Link to={"#"} className="btn btn-success mt-2 mb-3">
+						{language("Lihat Selengkapnya", "See More")} <AiOutlineRight />
+					</Link>
+				</div>
+			</section>
+
+			<section className="teachers-list text-center position-relative bg-white">
+				<div className="container py-3">
+					<h2>{language("Daftar Guru", "Teachers List")}</h2>
+					<div className="d-flex justify-content-end">
+						<Link to={"#"} className="btn btn-success mt-2 mb-3 me-5">
+							{language("Lihat Selengkapnya", "See More")}
+							<AiOutlineRight />
+						</Link>
+					</div>
+
+					<Carousel />
 				</div>
 			</section>
 		</main>

@@ -10,13 +10,13 @@ header nav ul.navbar-nav li.nav-item a.nav-link {
 	color: var(--green);
 	font-size: 20px;
 }
-/* .collapse.navbar-collapse {
-	justify-self: center;
-} */
-
-/* header nav ul.navbar-nav li.nav-item a.nav-link.active {
-	color: #014421;
-} */
+header .nav-item.dropdown li a {
+	color: var(--green);
+}
+header .nav-item.dropdown li a:hover {
+	background-color: var(--green);
+	color: white;
+}
 
 .flip {
 	animation: flip 0.6s ease-out;

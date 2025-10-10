@@ -11,3 +11,7 @@
 	--green: #064d04;
 	--basic-shadow: var(--basic-dark-shadow);
 }
+
+body {
+	color: var(--green);
+}

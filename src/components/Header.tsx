@@ -67,7 +67,7 @@ export default function Header() {
 									aria-expanded="false">
 									{locale === "id" ? "Profil" : "Profile"}
 								</a>
-								<ul className="dropdown-menu bg-tertiary">
+								<ul className="dropdown-menu bg-white">
 									<li>
 										<a className="dropdown-item" href="#">
 											{locale === "id" ? "Visi & Misi" : "Vision & Mission"}
@@ -113,7 +113,7 @@ export default function Header() {
 									aria-expanded="false">
 									{locale === "id" ? "Jurusan" : "Major"}
 								</a>
-								<ul className="dropdown-menu">
+								<ul className="dropdown-menu bg-white">
 									<li>
 										<a className="dropdown-item" href="#">
 											{locale === "id" ? "Otomotif" : "Automotive"}

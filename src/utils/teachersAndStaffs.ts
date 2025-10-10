@@ -35,13 +35,7 @@ export const teachers: TeachersType[] = [
 		role: "Kepala Sekolah",
 		imageSrc: "./teachers/imam.jpg",
 	},
-	// {
-	// 	id: 5,
-	// 	name: "Imam Rakhmat",
-	// 	title: "S.Sos., M.Si",
-	// 	role: "Kepala Sekolah",
-	// 	imageSrc: "./teachers/imam.jpg",
-	// },
+
 	{
 		id: 6,
 		name: "Rahmat Widi R",

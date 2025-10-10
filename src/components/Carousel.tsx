@@ -1,90 +1,69 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import CarouselItem from "./CarouselItem";
+
+import "../styles/carousel.css";
 
 export default function Carousel() {
 	const carouselRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const carouselChildren = Array.from(carouselRef.current!.children);
+		const totalChildren = carouselChildren.length;
+		const duration = 30;
+		carouselChildren.forEach((item, index) => {
+			console.log(item);
+			const delay =
+				(duration / totalChildren) * (totalChildren - (index + 1)) * -1;
+			console.log(delay);
+			(item as HTMLElement).style.left = `max(${totalChildren * 150}px, 100%)`;
+			(item as HTMLElement).style.animationDelay = delay.toString() + "s";
+		});
+	});
+
 	return (
 		<div
 			ref={carouselRef}
-			id="carouselAutoPlaying"
-			className="carousel slide bg-success vw-100 position-relative"
-			data-bs-ride="carousel"
-			data-bs-interval="10000"
-			style={{ height: "400px" }}>
-			<div className="carousel-indicators position-absolute start-50">
-				<button
-					type="button"
-					data-bs-target="#carouselAutoPlaying"
-					data-bs-slide-to="0"
-					className="active"
-					aria-current="true"
-					aria-label="Slide 1"></button>
-				<button
-					type="button"
-					data-bs-target="#carouselAutoPlaying"
-					data-bs-slide-to="1"
-					aria-label="Slide 2"></button>
-				<button
-					type="button"
-					data-bs-target="#carouselAutoPlaying"
-					data-bs-slide-to="2"
-					aria-label="Slide 3"></button>
-			</div>
-			<div className="carousel-inner px-5 mx-5 h-100">
-				<CarouselItem
-					carouselRef={carouselRef}
-					imageUrl="./perayaan-kemerdekaan/1.jpg"
-					imageAlt="Thumbnail Perayaan Kemerdekaan"
-					isActive={true}>
-					<h3>Perayaan Hari Kemerdekaan dengan Semangat Intelektual</h3>
-					<p>
-						Kemerdekaan bangsa Indonesia dicapai dengan perjuangan luar biasa...
-					</p>
-				</CarouselItem>
-				<CarouselItem
-					carouselRef={carouselRef}
-					imageUrl="./astra-safety-riding/safety-riding.jpg"
-					imageAlt="Thumbnail Penyelenggaraan Safety Riding Astra"
-					isActive={false}>
-					<h3>
-						Astra Motor Balikpapan Gelar Edukasi Safety Riding di SMK Pangeran
-						Antasari
-					</h3>
-					<p>
-						Pentingnya keselamatan dalam berkendara terus digaungkan oleh Astra
-						Motor Balikpapan dengan...
-					</p>
-				</CarouselItem>
-				<CarouselItem
-					carouselRef={carouselRef}
-					imageUrl="./penghargaan.jpeg"
-					imageAlt="Thumbnail Penghargaan"
-					isActive={false}>
-					<h3 style={{ fontWeight: "normal" }}>
-						SMK Pangeran Antasari Balikpapan Peroleh Penghargaan Bela Negara{" "}
-					</h3>
-					<p>
-						BALIKPAPAN, TRIBUN- “Ini pesan saya, awas setelah lulus ini
-						hati-hati...
-					</p>
-				</CarouselItem>
-			</div>
-			<button
-				className="carousel-control-prev"
-				type="button"
-				data-bs-target="#carouselAutoPlaying"
-				data-bs-slide="prev">
-				<span className="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span className="visually-hidden">Previous</span>
-			</button>
-			<button
-				className="carousel-control-next"
-				type="button"
-				data-bs-target="#carouselAutoPlaying"
-				data-bs-slide="next">
-				<span className="carousel-control-next-icon" aria-hidden="true"></span>
-				<span className="visually-hidden">Next</span>
-			</button>
+			className="carousel border-top border-bottom border-success border-opacity-25 d-flex align-items-center">
+			<CarouselItem
+				imgSrc="./teachers/ramadhan.jpg"
+				imgAlt="Ramadhan, S.T"
+				name="Ramadhan, S.T"
+			/>
+			<CarouselItem
+				imgSrc="./teachers/riyan.jpg"
+				imgAlt="Riyan Sujatmiko, S.T"
+				name="Riyan Sujatmiko, S.T"
+			/>
+			<CarouselItem
+				imgSrc="./teachers/ica.jpg"
+				imgAlt="Ica Krismayasanti, S.Pd"
+				name="Ica Krismayasanti, S.Pd"
+			/>
+			<CarouselItem
+				imgSrc="./teachers/sukadianto.jpg"
+				imgAlt="Sukadianto Lantu, S.T"
+				name="Sukadianto Lantu, S.T"
+			/>
+			<CarouselItem
+				imgSrc="./teachers/rachmat-hidayat.jpg"
+				imgAlt="Rachmat Hidayat, S.M"
+				name="Rachmat Hidayat, S.M"
+			/>
+			<CarouselItem
+				imgSrc="./teachers/endah.jpg"
+				imgAlt="Sri Endah Puspitarini, S.T"
+				name="Sri Endah Puspitarini, S.T"
+			/>
+			<CarouselItem
+				imgSrc="./teachers/adhi.jpg"
+				imgAlt="Adhi Dharma, S.T"
+				name="Adhi Dharma, S.T"
+			/>
+			<CarouselItem
+				imgSrc="./teachers/rizal.jpg"
+				imgAlt="Rizal Pahlevi, S.Pd"
+				name="Rizal Pahlevi, S.Pd"
+			/>
 		</div>
 	);
 }
