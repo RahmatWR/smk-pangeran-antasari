@@ -1,0 +1,53 @@
+.carousel {
+	/* padding-top: 10px; */
+	/* border-top: 1px solid red;
+	border-bottom: 1px solid red; */
+	width: 90%;
+	max-width: 1359px;
+	margin: auto;
+	height: 220px;
+	overflow: hidden;
+	mask-image: linear-gradient(
+		to right,
+		rgba(0, 0, 0, 0),
+		rgba(0, 0, 0, 1) 20%,
+		rgba(0, 0, 0, 1) 80%,
+		rgba(0, 0, 0, 0)
+	);
+}
+
+.card.carousel-card {
+	width: 150px;
+	height: 205px;
+	position: absolute;
+	animation: shiftLeft 30s linear infinite;
+}
+
+/* .card.carousel-card.satu {
+	animation-delay: calc(10s / 6 * (6 - 1) * -1);
+}
+.card.carousel-card.dua {
+	animation-delay: calc(10s / 6 * (6 - 2) * -1);
+}
+.card.carousel-card.tiga {
+	animation-delay: calc(10s / 6 * (6 - 3) * -1);
+}
+.card.carousel-card.empat {
+	animation-delay: calc(10s / 6 * (6 - 4) * -1);
+}
+.card.carousel-card.lima {
+	animation-delay: calc(10s / 6 * (6 - 5) * -1);
+}
+.card.carousel-card.enam {
+	animation-delay: calc(10s / 6 * (6 - 6) * -1);
+} */
+
+.card.carousel-card img {
+	height: 150px;
+}
+
+@keyframes shiftLeft {
+	to {
+		left: -150px;
+	}
+}
